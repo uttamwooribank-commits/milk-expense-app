@@ -14,7 +14,7 @@ month = st.number_input("Enter Month (1-12)", min_value=1, max_value=12, value=3
 price_cd = st.number_input(
     "Country Delight Price (₹)",
     min_value=0.0,
-    value=50.0,
+    value=30.06,
     step=0.1,
     format="%.2f"
 )
@@ -22,7 +22,7 @@ price_cd = st.number_input(
 price_amul = st.number_input(
     "Amul Price (₹)",
     min_value=0.0,
-    value=30.0,
+    value=35.0,
     step=0.1,
     format="%.2f"
 )
