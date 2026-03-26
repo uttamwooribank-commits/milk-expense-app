@@ -12,8 +12,21 @@ st.title("🧾 Milk Expense Generator")
 year = st.number_input("Enter Year", min_value=2020, max_value=2100, value=2026)
 month = st.number_input("Enter Month (1-12)", min_value=1, max_value=12, value=3)
 
-price_cd = st.number_input("Country Delight Price (₹)", value=50)
-price_amul = st.number_input("Amul Price (₹)", value=30)
+price_cd = st.number_input(
+    "Country Delight Price (₹)",
+    min_value=0.0,
+    value=50.0,
+    step=0.1,
+    format="%.2f"
+)
+
+price_amul = st.number_input(
+    "Amul Price (₹)",
+    min_value=0.0,
+    value=30.0,
+    step=0.1,
+    format="%.2f"
+)
 
 num_days = calendar.monthrange(year, month)[1]
 
