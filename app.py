@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import calendar
 from datetime import datetime
+from io import BytesIO
 
 st.set_page_config(page_title="Milk Expense App", layout="centered")
 
@@ -72,7 +73,10 @@ if st.button("Generate Report"):
 
     # --- DOWNLOAD ---
     file_name = f"Milk_Expense_{month_name}_{year}.xlsx"
-    excel = df_final.to_excel(index=False)
+    
+buffer = BytesIO()
+df_final.to_excel(buffer, index=False)
+buffer.seek(0)
 
     st.download_button(
         "📥 Download Excel",
