@@ -71,15 +71,16 @@ if st.button("Generate Report"):
     st.subheader(f"📅 Milk Expense - {month_name} {year}")
     st.dataframe(df_final)
 
-    # --- DOWNLOAD ---
+    # --- FIXED DOWNLOAD ---
     file_name = f"Milk_Expense_{month_name}_{year}.xlsx"
-    
-buffer = BytesIO()
-df_final.to_excel(buffer, index=False)
-buffer.seek(0)
+
+    buffer = BytesIO()
+    df_final.to_excel(buffer, index=False)
+    buffer.seek(0)
 
     st.download_button(
-        "📥 Download Excel",
-        data=excel,
-        file_name=file_name
+        label="📥 Download Excel",
+        data=buffer,
+        file_name=file_name,
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
