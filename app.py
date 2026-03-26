@@ -84,26 +84,14 @@ if st.button("Generate Report"):
     st.dataframe(df_final)
 
     # --- FIXED DOWNLOAD ---
-    file_name = f"Milk_Expense_{month_name}_{year}.xlsx"
+   # --- DOWNLOAD (CSV - NO DEPENDENCY ISSUE) ---
+file_name = f"Milk_Expense_{month_name}_{year}.csv"
 
-from io import BytesIO
-
-buffer = BytesIO()
-
-try:
-    # Try xlsxwriter first
-    with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-        df_final.to_excel(writer, index=False, sheet_name='Report')
-except:
-    # Fallback to openpyxl
-    with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
-        df_final.to_excel(writer, index=False, sheet_name='Report')
-
-buffer.seek(0)
+csv = df_final.to_csv(index=False).encode('utf-8')
 
 st.download_button(
-    label="📥 Download Excel",
-    data=buffer,
+    label="📥 Download Excel (CSV)",
+    data=csv,
     file_name=file_name,
-    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    mime='text/csv'
 )
