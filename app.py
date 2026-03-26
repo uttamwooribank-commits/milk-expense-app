@@ -9,7 +9,7 @@ st.title("🧾 Milk Expense Generator")
 
 # --- INPUTS ---
 year = st.number_input("Enter Year", min_value=2020, max_value=2100, value=2026)
-month = st.number_input("Enter Month (1-12)", min_value=1, max_value=12, value=3)
+month = st.number_input("Enter Month (1-12)", min_value=1, max_value=12, value=5)
 
 price_cd = st.number_input(
     "Country Delight Price (₹)",
