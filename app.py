@@ -69,7 +69,7 @@ if st.button("Generate Report"):
 
     # Download Excel
     buffer = io.BytesIO()
-    df.to_excel(buffer, index=False)
+    df.to_excel(buffer, index=False, engine="xlsxwriter")
 
     st.download_button(
         label="⬇️ Download Excel Report",
