@@ -27,6 +27,23 @@ price_amul = st.number_input(
     format="%.2f"
 )
 
+# --- NEW INPUTS ---
+membership = st.number_input(
+    "Membership (₹)",
+    min_value=0.0,
+    value=0.0,
+    step=0.1,
+    format="%.2f"
+)
+
+cashback = st.number_input(
+    "Cashback (₹)",
+    min_value=0.0,
+    value=0.0,
+    step=0.1,
+    format="%.2f"
+)
+
 num_days = calendar.monthrange(year, month)[1]
 
 # --- HOLIDAYS ---
@@ -35,6 +52,7 @@ holiday_dates = st.multiselect(
     options=list(range(1, num_days + 1))
 )
 
+# --- GENERATE ---
 if st.button("Generate Report"):
 
     month_name = calendar.month_name[month]
@@ -65,33 +83,63 @@ if st.button("Generate Report"):
             total_amul
         ])
 
+    # --- DATAFRAME ---
     df = pd.DataFrame(data, columns=[
-        "Date", "Day Names", "Type", "Qty",
-        "Country Delight Price", "Country Delight",
-        "Amul Price", "Amul"
+        "Date",
+        "Day Names",
+        "Type",
+        "Qty",
+        "Country Delight Price",
+        "Country Delight",
+        "Amul Price",
+        "Amul"
     ])
 
-    # --- TOTAL ROW ---
-    total_row = pd.DataFrame([[
-        "", "", "TOTAL", "",
-        "", df["Country Delight"].sum(),
-        "", df["Amul"].sum()
+    # --- MEMBERSHIP ROW ---
+    membership_row = pd.DataFrame([[
+        "", "", "Membership", "",
+        "", membership,
+        "", ""
     ]], columns=df.columns)
 
-    df_final = pd.concat([df, total_row], ignore_index=True)
+    # --- CASHBACK ROW (NEGATIVE) ---
+    cashback_value = -abs(cashback)
+
+    cashback_row = pd.DataFrame([[
+        "", "", "Cashback", "",
+        "", cashback_value,
+        "", ""
+    ]], columns=df.columns)
+
+    # --- TOTAL CALCULATION ---
+    final_cd_total = df["Country Delight"].sum() + membership + cashback_value
+    final_amul_total = df["Amul"].sum()
+
+    total_row = pd.DataFrame([[
+        "", "", "TOTAL", "",
+        "",
+        final_cd_total,
+        "",
+        final_amul_total
+    ]], columns=df.columns)
+
+    # --- FINAL DATA ---
+    df_final = pd.concat(
+        [df, membership_row, cashback_row, total_row],
+        ignore_index=True
+    )
 
     st.subheader(f"📅 Milk Expense - {month_name} {year}")
     st.dataframe(df_final)
 
-    # --- FIXED DOWNLOAD ---
-   # --- DOWNLOAD (CSV - NO DEPENDENCY ISSUE) ---
-file_name = f"Milk_Expense_{month_name}_{year}.csv"
+    # --- DOWNLOAD CSV (SAFE) ---
+    file_name = f"Milk_Expense_{month_name}_{year}.csv"
 
-csv = df_final.to_csv(index=False).encode('utf-8')
+    csv = df_final.to_csv(index=False).encode('utf-8')
 
-st.download_button(
-    label="📥 Download Excel (CSV)",
-    data=csv,
-    file_name=file_name,
-    mime='text/csv'
-)
+    st.download_button(
+        label="📥 Download Report",
+        data=csv,
+        file_name=file_name,
+        mime="text/csv"
+    )
