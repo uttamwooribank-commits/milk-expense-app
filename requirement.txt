@@ -1,0 +1,15 @@
+👉 User inputs:
+
+Month & Year
+
+Price (manual)
+
+Holidays (manual entry)
+
+👉 System:
+
+Generates full report
+
+Skips weekends + holidays
+
+Calculates everything automatically
