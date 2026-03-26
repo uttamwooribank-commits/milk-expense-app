@@ -1,3 +1,4 @@
 streamlit
 pandas
-XlsxWriter
+openpyxl==3.1.2
+XlsxWriter==3.1.9
