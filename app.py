@@ -12,7 +12,7 @@ import io
 
 st.set_page_config(page_title="Milk Report Generator", layout="centered")
 
-st.title("🧾 Milk Report Generator")
+st.title("🧾 Milk Expense "month" ")
 
 # Inputs
 month = st.selectbox("Select Month", list(range(1, 13)))
@@ -69,12 +69,12 @@ if st.button("Generate Report"):
 
     # Download Excel
     buffer = io.BytesIO()
-    df.to_excel(buffer, index=False, engine="xlsxwriter")
+    df.to_excel(buffer, index=False, engine="xlswriter")
 
     st.download_button(
         label="⬇️ Download Excel Report",
         data=buffer.getvalue(),
-        file_name=f"Milk_Report_{calendar.month_name[month]}_{year}.xlsx",
+        file_name=f"Milk_Expense_{calendar.month_name[month]}_{year}.xlsx",
         mime="application/vnd.ms-excel"
     )
 
