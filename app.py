@@ -11,8 +11,8 @@ from datetime import datetime
 import io
 
 st.set_page_config(page_title="Milk Report Generator", layout="centered")
-
-st.title("🧾 Milk Expense "month" ")
+import calendar
+st.title(f"🧾 Milk Expense {calendar.month_name[month]}")
 
 # Inputs
 month = st.selectbox("Select Month", list(range(1, 13)))
