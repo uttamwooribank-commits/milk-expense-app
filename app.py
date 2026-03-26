@@ -8,7 +8,7 @@ st.set_page_config(page_title="Milk Expense App", layout="centered")
 st.title("🧾 Milk Expense Generator")
 
 # --- INPUTS ---
-year = st.number_input("Enter Year", min_value=2020, max_value=2100)
+year = st.number_input("Enter Year", min_value=2020, max_value=2100, value=2026)
 month = st.number_input("Enter Month (1-12)", min_value=1, max_value=12, value=5)
 
 price_cd = st.number_input(
