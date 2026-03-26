@@ -9,9 +9,6 @@ import pandas as pd
 import calendar
 from datetime import datetime
 import io
-
-st.set_page_config(page_title="Milk Report Generator", layout="centered")
-import calendar
 st.title(f"🧾 Milk Expense {calendar.month_name[month]}")
 
 # Inputs
