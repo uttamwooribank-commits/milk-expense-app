@@ -1,15 +1,3 @@
-👉 User inputs:
-
-Month & Year
-
-Price (manual)
-
-Holidays (manual entry)
-
-👉 System:
-
-Generates full report
-
-Skips weekends + holidays
-
-Calculates everything automatically
+streamlit==1.32.0
+pandas==2.2.2
+openpyxl==3.1.2
