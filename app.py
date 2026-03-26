@@ -88,7 +88,7 @@ if st.button("Generate Report"):
     file_name = f"Milk_Expense_{month_name}_{year}.xlsx"
 
     buffer = BytesIO()
-    df_final.to_excel(buffer, index=False)
+    df_final.to_excel(buffer, index=False, engine='openpyxl')
     buffer.seek(0)
 
     st.download_button(
