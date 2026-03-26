@@ -88,7 +88,8 @@ if st.button("Generate Report"):
     file_name = f"Milk_Expense_{month_name}_{year}.xlsx"
 
     buffer = BytesIO()
-    df_final.to_excel(buffer, index=False)
+   with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+    df_final.to_excel(writer, index=False, sheet_name='Report')
     buffer.seek(0)
 
     st.download_button(
