@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import calendar
 from datetime import datetime
-from io import BytesIO
 
 st.set_page_config(page_title="Milk Expense App", layout="centered")
 
@@ -87,17 +86,24 @@ if st.button("Generate Report"):
     # --- FIXED DOWNLOAD ---
     file_name = f"Milk_Expense_{month_name}_{year}.xlsx"
 
-    buffer = BytesIO()
-    
+from io import BytesIO
+
+buffer = BytesIO()
+
+try:
+    # Try xlsxwriter first
     with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
         df_final.to_excel(writer, index=False, sheet_name='Report')
-        
-    buffer.seek(0)
-    
-    st.download_button(
-        label="📥 Download Excel",
-        data=buffer,
-        file_name=file_name,
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        
-    )
+except:
+    # Fallback to openpyxl
+    with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+        df_final.to_excel(writer, index=False, sheet_name='Report')
+
+buffer.seek(0)
+
+st.download_button(
+    label="📥 Download Excel",
+    data=buffer,
+    file_name=file_name,
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
