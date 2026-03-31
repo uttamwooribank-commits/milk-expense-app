@@ -112,8 +112,8 @@ if st.button("Generate Report"):
     ]], columns=df.columns)
 
     # --- TOTAL CALCULATION ---
-    final_cd_total = df["Country Delight"].sum() + membership + cashback_value
-    final_amul_total = df["Amul"].sum()
+    final_cd_total = round(df["Country Delight"].sum() + membership + cashback_value)
+    final_amul_total = round(df["Amul"].sum())
 
     total_row = pd.DataFrame([[
         "", "", "TOTAL", "",
